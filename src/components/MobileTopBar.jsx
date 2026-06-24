@@ -1,10 +1,13 @@
 import { SearchBox } from './SearchBox.jsx';
+import { ThemeToggle } from './ThemeToggle.jsx';
 
 export function MobileTopBar({
   isMenuOpen,
+  isDarkTheme,
   onMenuToggle,
   onQueryChange,
   onTextScaleChange,
+  onThemeToggle,
   query,
   textScale,
 }) {
@@ -39,6 +42,8 @@ export function MobileTopBar({
           A+
         </button>
       </div>
+
+      <ThemeToggle isDarkTheme={isDarkTheme} onToggle={onThemeToggle} />
     </header>
   );
 }

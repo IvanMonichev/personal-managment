@@ -1,11 +1,52 @@
 :root {
-  color: #111;
-  background: #f5f5f3;
+  --bg: #f5f5f7;
+  --panel: rgba(255, 255, 255, 0.86);
+  --panel-solid: #ffffff;
+  --card: #ffffff;
+  --text: #1d1d1f;
+  --muted: #6e6e73;
+  --soft-text: #3a3a3c;
+  --border: rgba(60, 60, 67, 0.18);
+  --border-strong: rgba(60, 60, 67, 0.28);
+  --hover: rgba(90, 169, 230, 0.12);
+  --active-bg: #5aa9e6;
+  --active-text: #ffffff;
+  --active-muted: rgba(255, 255, 255, 0.72);
+  --focus: rgba(90, 169, 230, 0.24);
+  --accent: #5aa9e6;
+  --accent-hover: #3f8fcb;
+  --toolbar-bg: rgba(245, 245, 247, 0.82);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 30px rgba(0, 0, 0, 0.06);
+  color: var(--text);
+  background: var(--bg);
+  color-scheme: light;
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -apple-system, BlinkMacSystemFont, Inter, ui-sans-serif, system-ui, "SF Pro Text", "Segoe UI", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --panel: rgba(28, 28, 30, 0.86);
+  --panel-solid: #1c1c1e;
+  --card: #2c2c2e;
+  --text: #f5f5f7;
+  --muted: #98989d;
+  --soft-text: #d1d1d6;
+  --border: rgba(84, 84, 88, 0.5);
+  --border-strong: rgba(99, 99, 102, 0.72);
+  --hover: rgba(10, 132, 255, 0.16);
+  --active-bg: #0a84ff;
+  --active-text: #ffffff;
+  --active-muted: rgba(255, 255, 255, 0.7);
+  --focus: rgba(10, 132, 255, 0.34);
+  --accent: #0a84ff;
+  --accent-hover: #409cff;
+  --toolbar-bg: rgba(0, 0, 0, 0.76);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 18px 36px rgba(0, 0, 0, 0.28);
+  color-scheme: dark;
 }
 
 * {
@@ -28,6 +69,10 @@ button {
   cursor: pointer;
 }
 
+body {
+  background: var(--bg);
+}
+
 .state-screen {
   display: grid;
   min-height: 100vh;
@@ -44,7 +89,7 @@ button {
 
 .state-screen p {
   margin: 0;
-  color: #5a5a55;
+  color: var(--muted);
 }
 
 .app-shell {
@@ -52,7 +97,7 @@ button {
   min-height: 100vh;
   grid-template-columns: 280px minmax(280px, 360px) minmax(0, 1fr);
   grid-template-areas: "sidebar questions reader";
-  color: #111;
+  color: var(--text);
 }
 
 .mobile-topbar {
@@ -63,8 +108,9 @@ button {
 .question-panel {
   height: 100vh;
   overflow: auto;
-  border-right: 1px solid #d8d8d2;
-  background: #fbfbf9;
+  border-right: 1px solid var(--border);
+  background: var(--panel);
+  backdrop-filter: blur(22px) saturate(180%);
 }
 
 .sidebar {
@@ -78,7 +124,7 @@ button {
 
 .brand {
   padding: 0 10px 24px;
-  border-bottom: 1px solid #deded8;
+  border-bottom: 1px solid var(--border);
 }
 
 .brand-kicker,
@@ -88,7 +134,7 @@ button {
 .search-meta,
 .question-subject,
 .count {
-  color: #6a6a63;
+  color: var(--muted);
   font-size: 12px;
   letter-spacing: 0;
 }
@@ -103,7 +149,7 @@ button {
 .subject-list,
 .question-list {
   display: grid;
-  gap: 4px;
+  gap: 6px;
 }
 
 .subject-list {
@@ -114,9 +160,9 @@ button {
 .question-button {
   width: 100%;
   border: 0;
-  border-radius: 6px;
+  border-radius: 8px;
   background: transparent;
-  color: #171717;
+  color: var(--text);
   text-align: left;
   text-decoration: none;
 }
@@ -132,23 +178,24 @@ button {
 
 .subject-button:hover,
 .question-button:hover {
-  background: #ecece8;
+  background: var(--hover);
 }
 
 .subject-button.active,
 .question-button.active {
-  background: #111;
-  color: #fff;
+  background: var(--active-bg);
+  color: var(--active-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
 .subject-button.active .count,
 .question-button.active .question-subject {
-  color: #cdcdc7;
+  color: var(--active-muted);
 }
 
 .count {
   min-width: 28px;
-  border: 1px solid #d2d2cc;
+  border: 1px solid var(--border);
   border-radius: 999px;
   padding: 1px 7px 2px;
   text-align: center;
@@ -167,23 +214,24 @@ button {
   display: grid;
   gap: 8px;
   padding: 18px 16px 14px;
-  border-bottom: 1px solid #deded8;
-  background: #fbfbf9;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+  backdrop-filter: blur(22px) saturate(180%);
 }
 
 .search-block input {
   width: 100%;
-  border: 1px solid #c8c8c2;
-  border-radius: 6px;
-  background: #fff;
-  color: #111;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
   outline: none;
   padding: 10px 11px;
 }
 
 .search-block input:focus {
-  border-color: #111;
-  box-shadow: 0 0 0 2px #11111118;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--focus);
 }
 
 .question-list {
@@ -202,7 +250,7 @@ button {
 
 .teacher-questions {
   margin-top: 36px;
-  border-top: 1px solid #cfcfc8;
+  border-top: 1px solid var(--border);
   padding-top: 24px;
 }
 
@@ -218,14 +266,17 @@ button {
 }
 
 .teacher-question-item {
-  border-left: 3px solid #111;
-  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  background: var(--card);
   padding: 16px 18px;
+  box-shadow: var(--shadow);
 }
 
 .teacher-question-label,
 .teacher-answer-label {
-  color: #6a6a63;
+  color: var(--muted);
   font-size: calc(12px * var(--text-scale));
   line-height: 1.2;
   text-transform: uppercase;
@@ -242,7 +293,7 @@ button {
 
 .teacher-answer-text {
   margin-top: 5px;
-  color: #31312d;
+  color: var(--soft-text);
 }
 
 .teacher-answer-text p {
@@ -253,7 +304,7 @@ button {
   grid-area: reader;
   height: 100vh;
   overflow: auto;
-  background: #f5f5f3;
+  background: var(--bg);
 }
 
 .reader-toolbar {
@@ -265,10 +316,10 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  border-bottom: 1px solid #d8d8d2;
-  background: rgba(245, 245, 243, 0.96);
+  border-bottom: 1px solid var(--border);
+  background: var(--toolbar-bg);
   padding: 14px 42px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(22px) saturate(180%);
 }
 
 .reader-subject {
@@ -281,24 +332,40 @@ button {
   grid-template-columns: 44px 52px 44px;
   align-items: center;
   gap: 6px;
-  color: #55554f;
+  color: var(--muted);
   font-size: 13px;
 }
 
-.font-controls button {
+.font-controls button,
+.theme-toggle {
   height: 36px;
-  border: 1px solid #c8c8c2;
-  border-radius: 6px;
-  background: #fff;
-  color: #111;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
 }
 
-.font-controls button:hover {
-  border-color: #111;
+.font-controls button:hover,
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .font-controls span {
   text-align: center;
+}
+
+.reader-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-toggle {
+  min-width: 44px;
+  padding: 0 10px;
+  font-size: 16px;
+  font-weight: 560;
 }
 
 .markdown-body {
@@ -337,9 +404,9 @@ button {
 
 .markdown-body blockquote {
   margin: 22px 0;
-  border-left: 3px solid #111;
+  border-left: 3px solid var(--accent);
   padding-left: 18px;
-  color: #3e3e39;
+  color: var(--soft-text);
 }
 
 @media (max-width: 1100px) {
@@ -369,12 +436,13 @@ button {
     z-index: 5;
     display: grid;
     grid-area: mobile-topbar;
-    grid-template-columns: 44px minmax(0, 1fr) 118px;
-    gap: 10px;
+    grid-template-columns: 44px minmax(0, 1fr) 106px 54px;
+    gap: 8px;
     align-items: start;
-    border-bottom: 1px solid #d8d8d2;
-    background: #fbfbf9;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
     padding: 10px 12px;
+    backdrop-filter: blur(22px) saturate(180%);
   }
 
   .burger-button {
@@ -383,16 +451,16 @@ button {
     width: 44px;
     place-content: center;
     gap: 5px;
-    border: 1px solid #c8c8c2;
-    border-radius: 6px;
-    background: #fff;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    background: var(--card);
   }
 
   .burger-button span {
     display: block;
     width: 18px;
     height: 2px;
-    background: #111;
+    background: var(--text);
   }
 
   .mobile-search {
@@ -411,7 +479,7 @@ button {
   }
 
   .mobile-font-controls {
-    grid-template-columns: 34px 38px 34px;
+    grid-template-columns: 32px 34px 32px;
     gap: 4px;
     font-size: 12px;
   }
@@ -421,6 +489,13 @@ button {
     padding: 0;
   }
 
+  .mobile-topbar .theme-toggle {
+    height: 42px;
+    min-width: 0;
+    padding: 0;
+    font-size: 12px;
+  }
+
   .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
@@ -428,7 +503,7 @@ button {
     width: min(86vw, 340px);
     height: 100vh;
     padding: 14px 10px;
-    border-right: 1px solid #d8d8d2;
+    border-right: 1px solid var(--border);
     transform: translateX(-100%);
     transition: transform 160ms ease;
   }
@@ -465,7 +540,7 @@ button {
     height: auto;
     max-height: 44vh;
     border-right: 0;
-    border-bottom: 1px solid #d8d8d2;
+    border-bottom: 1px solid var(--border);
     grid-template-rows: 1fr;
   }
 
@@ -484,7 +559,7 @@ button {
     padding: 14px 18px;
   }
 
-  .reader-toolbar .font-controls {
+  .reader-toolbar .reader-controls {
     display: none;
   }
 

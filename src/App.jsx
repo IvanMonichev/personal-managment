@@ -5,6 +5,7 @@ import { Reader } from './components/Reader.jsx';
 import { Sidebar } from './components/Sidebar.jsx';
 import { StateScreen } from './components/StateScreen.jsx';
 import { useMarkdownContent } from './hooks/useMarkdownContent.js';
+import { useTheme } from './hooks/useTheme.js';
 import { flattenQuestions, getSearchResults } from './lib/content.js';
 import { readRoute, writeRoute } from './lib/routes.js';
 
@@ -23,6 +24,7 @@ export default function App() {
   const [query, setQuery] = useState('');
   const [textScale, setTextScale] = useState(1);
   const [isSubjectMenuOpen, setIsSubjectMenuOpen] = useState(false);
+  const { isDarkTheme, toggleTheme } = useTheme();
   const contentRef = useRef(null);
 
   const allQuestions = useMemo(() => flattenQuestions(parsed.subjects), [parsed.subjects]);
@@ -124,7 +126,9 @@ export default function App() {
         onMenuToggle={() => setIsSubjectMenuOpen((value) => !value)}
         onQueryChange={setQuery}
         onTextScaleChange={setTextScale}
+        onThemeToggle={toggleTheme}
         query={query}
+        isDarkTheme={isDarkTheme}
         textScale={textScale}
       />
 
@@ -151,7 +155,9 @@ export default function App() {
       <Reader
         allQuestionCount={allQuestions.length}
         contentRef={contentRef}
+        isDarkTheme={isDarkTheme}
         onTextScaleChange={setTextScale}
+        onThemeToggle={toggleTheme}
         question={activeQuestion}
         textScale={textScale}
       />
